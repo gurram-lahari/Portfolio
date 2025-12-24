@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G. Chaitanya Lahari | Portfolio</title>
+    
+    <!-- Font Awesome 6.5.1 - Removed integrity to prevent loading issues -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        html { scroll-behavior: smooth; }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            padding: 1.8rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s;
+            border-bottom: 1px solid rgba(0,255,255,0.2);
+        }
+        #navbar.scrolled {
+            padding: 1.2rem 6%;
+            background: rgba(0,0,0,0.95);
+            box-shadow: 0 10px 30px rgba(0,255,255,0.1);
+        }
+        .logo{
+            font-size:2.3rem;
+            font-weight:900;
+            background:linear-gradient(90deg,#4facfe,#00f2fe);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            text-shadow:0 0 25px rgba(79,172,254,.6);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 3.2rem;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            transition: width 0.4s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 10% 8rem;
+            position: relative;
+            gap: 6rem;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45);
+        }
+        .hero-content {
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+            text-align: left;
+        }
+        .hero-content h1 {
+            font-size: 1.8rem;
+            color: #aaa;
+            margin-bottom: 1.2rem;
+        }
+        .hero-content h2 {
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 900;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: linear-gradient(90deg,#4facfe,#00f2fe,#38ef7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 60px rgba(79,172,254,0.7);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1.5px;
+        }
+        .hero-content h3 {
+            font-size: 2.6rem;
+            color: #00ffff;
+            text-shadow: 0 0 35px #00ffff;
+            margin-bottom: 2.5rem;
+        }
+        .hero-content p {
+            line-height: 1.9;
+            margin-bottom: 4rem;
+            font-size: 1.3rem;
+        }
+        .social-icons {
+            display: flex;
+            gap: 2.2rem;
+            margin-bottom: 4rem;
+        }
+        .social-icons a {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #00ffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffff;
+            font-size: 1.8rem;
+            transition: all 0.4s;
+        }
+        .social-icons a:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 60px #00ffff;
+            transform: translateY(-12px);
+        }
+        .cta-btn {
+            padding: 1.4rem 3.5rem;
+            border-radius: 60px;
+            border: 3px solid #00ffff;
+            background: transparent;
+            color: #00ffff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 0 40px rgba(0,255,255,0.6);
+        }
+        .cta-btn:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 80px #00ffff;
+        }
+
+        /* Profile Image */
+        .profile-img-container {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 70px rgba(0,255,255,0.9);
+            position: relative;
+            z-index: 3;
+        }
+        .neon-ring {
+            position: absolute;
+            inset: -40px;
+            border-radius: 50%;
+            background: conic-gradient(#00ffff, #ff00ff, #00ffff, #ff66ff);
+            padding: 20px;
+            animation: rotate 35s linear infinite;
+            box-shadow: 0 0 120px rgba(0,255,255,0.9);
+        }
+        .neon-ring::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            background: #000;
+            border-radius: 50%;
+        }
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Sections */
+        section {
+            padding: 12rem 12%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h2 {
+            text-align: center;
+            font-size: 5.2rem;
+            margin-bottom: 6rem;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 50px rgba(0,255,255,0.4);
+        }
+
+        /* Projects */
+        .project-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 4rem;
+        }
+        .project-card {
+            background: rgba(0,255,255,0.06);
+            border: 1px solid rgba(0,255,255,0.35);
+            padding: 3.5rem;
+            border-radius: 30px;
+            transition: all 0.6s;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0,255,255,0.25), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        .project-card:hover {
+            transform: translateY(-30px);
+            box-shadow: 0 50px 90px rgba(0,255,255,0.7);
+            border-color: #00ffff;
+        }
+        .project-card h3 {
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            font-size: 2.1rem;
+            text-shadow: 0 0 25px #00ffff;
+        }
+        .tech-tag {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 1.6rem;
+            border-radius: 40px;
+            background: rgba(0,255,255,0.3);
+            color: #00ffff;
+            font-size: 1.1rem;
+        }
+
+        /* Education */
+        .education-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+        .education-card {
+            background: rgba(0,255,255,0.06);
+            border: 1px solid rgba(0,255,255,0.35);
+            border-radius: 30px;
+            padding: 4rem;
+            transition: all 0.6s;
+        }
+        .education-card:hover {
+            transform: translateY(-25px);
+            box-shadow: 0 40px 80px rgba(0,255,255,0.6);
+            border-color: #00ffff;
+        }
+        .education-card h3 {
+            font-size: 2.4rem;
+            color: #00ffff;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 0 25px #00ffff;
+        }
+        .education-card .college {
+            font-size: 1.8rem;
+            color: #ff00ff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px #ff00ff;
+        }
+
+        /* Skills */
+        .skills-subsection {
+            margin-bottom: 8rem;
+        }
+        .skills-subsection h3 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            color: #00ffff;
+            text-shadow: 0 0 30px #00ffff;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .skill-tag {
+            padding: 1.4rem 3rem;
+            background: rgba(0,255,255,0.12);
+            border: 1px solid rgba(0,255,255,0.5);
+            border-radius: 60px;
+            font-size: 1.3rem;
+            color: #00ffff;
+            text-shadow: 0 0 18px #00ffff;
+            transition: all 0.5s;
+            box-shadow: 0 0 25px rgba(0,255,255,0.4);
+        }
+        .skill-tag:hover {
+            background: rgba(0,255,255,0.45);
+            transform: translateY(-12px) scale(1.08);
+            box-shadow: 0 0 60px rgba(0,255,255,0.9);
+        }
+
+        /* Extracurricular & Achievements */
+        #extracurricular-list,
+        #achievement-list {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        #extracurricular-list li,
+        #achievement-list li {
+            list-style: none;
+            padding: 2.8rem 3.5rem;
+            margin-bottom: 2.5rem;
+            background: rgba(0,255,255,0.06);
+            border-left: 10px solid #00ffff;
+            border-radius: 20px;
+            transition: all 0.5s;
+            box-shadow: 0 0 25px rgba(0,255,255,0.2);
+            font-size: 1.3rem;
+        }
+        #extracurricular-list li:hover,
+        #achievement-list li:hover {
+            transform: translateX(50px);
+            box-shadow: 0 0 60px rgba(0,255,255,0.6);
+        }
+
+        /* Contact */
+        #contact {
+            padding-bottom: 14rem;
+        }
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 5rem;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .contact-card {
+            text-decoration: none;
+            color: #fff;
+            padding: 4rem 3rem;
+            background: rgba(0,255,255,0.12);
+            border-radius: 40px;
+            text-align: center;
+            transition: all 0.6s;
+            border: 1px solid rgba(0,255,255,0.4);
+            min-width: 280px;
+            flex: 1;
+            max-width: 320px;
+        }
+        .contact-card:hover {
+            transform: translateY(-30px);
+            box-shadow: 0 50px 90px rgba(0,255,255,0.7);
+            border-color: #00ffff;
+            background: rgba(0,255,255,0.25);
+        }
+        .contact-card i {
+            font-size: 4.5rem;
+            color: #00ffff;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 0 40px #00ffff;
+        }
+        .contact-card span {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10rem 8% 8rem;
+            }
+            .hero-content { width: 100%; text-align: left; }
+            .social-icons { justify-content: flex-start; }
+            .hero-content h2 { font-size: clamp(2.4rem, 7vw, 3.4rem); }
+            .profile-img-container { width: 400px; height: 400px; }
+        }
+        @media (max-width: 768px) {
+            .hero-content h2 { font-size: clamp(2.2rem, 7vw, 3.2rem); }
+            .hero-content h3 { font-size: 2.4rem; }
+            .profile-img-container { width: 350px; height: 350px; }
+            section { padding: 10rem 8%; }
+        }
+        @media (max-width: 480px) {
+            .hero-content h2 { font-size: clamp(2rem, 8vw, 3rem); }
+            .profile-img-container { width: 300px; height: 300px; }
+            section { padding: 8rem 6%; }
+        }
+
+        /* Force left alignment */
+        .hero { display: flex; flex-direction: row; align-items: center; justify-content: space-between; }
+        .hero-content { display: flex; flex-direction: column; align-items: flex-start; text-align: left; margin: 0; }
+        .hero-content h1, .hero-content h2, .hero-content h3 { width: 100%; text-align: left; margin-left: 0; }
+        .profile-img-container { margin-left: auto; }
+        #navbar { display: flex; justify-content: space-between; }
+        .logo { margin-right: auto; }
+        .nav-links { margin-left: auto; }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <nav id="navbar">
+        <div class="logo">G. Chaitanya Lahari</div>
+        <ul class="nav-links">
+            <li><a href="#about" class="active">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#extracurricular">Extracurricular</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="about">
+        <div class="hero-content">
+            <h1>Hello, It's Me</h1>
+            <h2>G. Chaitanya Lahari</h2>
+            <h3>Competitive Programmer</h3>
+            <p>CSE Student at Shri Vishnu Engineering College for Women with a CGPA of 9.27. I am passionate about competitive programming and enjoy solving challenging problems using Data Structures and Algorithms.
+
+I have a strong interest in Machine Learning and software development, and I enjoy building efficient, scalable, and secure applications. I am a motivated learner who continuously explores new technologies and works towards improving my technical and problem-solving skills.</p>
+
+            <div class="social-icons">
+                <a href="https://leetcode.com/u/gurram_lahari" target="_blank"><i class="fas fa-code"></i></a>
+                <a href="https://codeforces.com/profile/Chaitanya_Lahari_G" target="_blank"><i class="fas fa-laptop-code"></i></a>
+                <a href="https://github.com/gurram-lahari" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://in.linkedin.com/in/chaitanya-lahari-gurram-1978a3292" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+
+            <a href="#projects"><button class="cta-btn">Explore My Work</button></a>
+        </div>
+
+        <div class="profile-img-container">
+            <div class="neon-ring"></div>
+            <img class="profile-img" src="https://i.ibb.co/rRWPz11b/lahari-photo.jpg" alt="G. Chaitanya Lahari">
+        </div>
+    </header>
+
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-container">
+            <div class="project-card" onmousemove="handleMouseMove(event)" onmouseleave="handleMouseLeave(event)">
+                <h3>Login Anomaly Detection</h3>
+                <p>ML-based security solution using KMeans clustering in Splunk to detect suspicious logins such as impossible travel and abnormal access behavior.</p>
+                <span class="tech-tag">Splunk • Machine Learning</span>
+            </div>
+
+            <div class="project-card" onmousemove="handleMouseMove(event)" onmouseleave="handleMouseLeave(event)">
+                <h3>Forest Fire Detection</h3>
+                <p>Convolutional Neural Network model that classifies images as fire or non-fire, helping in early detection of forest fires.</p>
+                <span class="tech-tag">Python • CNN • Deep Learning</span>
+            </div>
+
+            <div class="project-card" onmousemove="handleMouseMove(event)" onmouseleave="handleMouseLeave(event)">
+                <h3>SIP Calculator</h3>
+                <p>Responsive web-based calculator that computes SIP investment returns based on amount, tenure, and interest rate.</p>
+                <span class="tech-tag">React • Finance</span>
+            </div>
+
+            <div class="project-card" onmousemove="handleMouseMove(event)" onmouseleave="handleMouseLeave(event)">
+                <h3>Basic Calculator</h3>
+                <p>Desktop GUI calculator built using Python Tkinter supporting standard arithmetic operations.</p>
+                <span class="tech-tag">Python • Tkinter</span>
+            </div>
+
+            <div class="project-card" onmousemove="handleMouseMove(event)" onmouseleave="handleMouseLeave(event)">
+                <h3>Artiva</h3>
+                <p>Interactive web application that allows users to create and explore digital art using modern frontend and backend technologies.</p>
+                <span class="tech-tag">HTML • CSS • JavaScript • PHP</span>
+            </div>
+
+            <div class="project-card" onmousemove="handleMouseMove(event)" onmouseleave="handleMouseLeave(event)">
+                <h3>Memory Card Game</h3>
+                <p>Browser-based memory matching game designed to improve concentration and logical thinking skills.</p>
+                <span class="tech-tag">HTML • CSS • JavaScript</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-container">
+            <div class="education-card">
+                <h3>B.Tech - Computer Science and Engineering</h3>
+                <div class="college">Shri Vishnu Engineering College for Women (Autonomous)</div>
+                <p>Bhimavaram, Andhra Pradesh<br>2023 – 2027 <br><strong>CGPA: 9.29 / 10</strong></p>
+            </div>
+
+            <div class="education-card">
+                <h3>Intermediate (MPC)</h3>
+                <div class="college">Sri Chaitanya Junior College</div>
+                <p>Tenali, Andhra Pradesh<br>2021 – 2023 <br><strong>Marks: 965 / 1000</strong></p>
+            </div>
+
+            <div class="education-card">
+                <h3>SSC</h3>
+                <div class="college">Sri Chaitanya High School</div>
+                <p>Tenali, Andhra Pradesh<br>2020-2021 <br><strong>GPA: 10.0 / 10</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+
+        <div class="skills-subsection">
+            <h3>Technical Skills</h3>
+            <div class="skills-container">
+                <div class="skill-tag">C</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">Java</div>
+                <div class="skill-tag">Data Structures & Algorithms</div>
+                <div class="skill-tag">Machine Learning</div>
+                <div class="skill-tag">React</div>
+                <div class="skill-tag">MongoDB</div>
+                <div class="skill-tag">Node.js</div>
+                <div class="skill-tag">Express.js</div>
+                <div class="skill-tag">HTML</div>
+                <div class="skill-tag">CSS</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">PHP</div>
+                <div class="skill-tag">Tkinter</div>
+                <div class="skill-tag">Git & GitHub</div>
+            </div>
+        </div>
+
+        <div class="skills-subsection">
+            <h3>Soft Skills</h3>
+            <div class="skills-container">
+                <div class="skill-tag">Problem Solving</div>
+                <div class="skill-tag">Teamwork</div>
+                <div class="skill-tag">Communication</div>
+                <div class="skill-tag">Time Management</div>
+                <div class="skill-tag">Leadership</div>
+                <div class="skill-tag">Adaptability</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="extracurricular">
+        <h2>Extracurricular Activities</h2>
+        <ul id="extracurricular-list">
+            <li>Regular participant in college technical fests and coding competitions</li>
+            <li>Volunteered in community outreach and social responsibility programs</li>
+            <li>Member of the Eco-Friendly Association, promoting sustainability initiatives</li>
+        </ul>
+    </section>
+
+    <section id="achievements">
+        <h2>Achievements</h2>
+        <ul id="achievement-list">
+            <li>ICPC Asia-Amritapuri Institute Topper 2026</li>
+            <li>600+ LeetCode problems solved</li>
+            <li>5⭐ HackerRank Problem Solving</li>
+            <li>Hacktoberfest Super Contributor</li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-container">
+            <a href="https://github.com/gurram-lahari" class="contact-card">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://in.linkedin.com/in/chaitanya-lahari-gurram-1978a3292" class="contact-card">
+                <i class="fa-brands fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="mailto:gurramlahari84@gmail.com" class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <span>Email</span>
+            </a>
+            <a href="tel:+919182331538" class="contact-card">
+                <i class="fas fa-phone"></i>
+                <span>Phone</span>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Active link highlighting
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Section reveal on scroll
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+        sections.forEach(sec => observer.observe(sec));
+
+        // Mouse glow effect on project cards
+        function handleMouseMove(e) {
+            const card = e.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        }
+        function handleMouseLeave(e) {
+            const card = e.currentTarget;
+            card.style.setProperty('--mouse-x', `50%`);
+            card.style.setProperty('--mouse-y', `50%`);
+        }
+
+        // Particles.js background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00ffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1 } },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#00ffff', opacity: 0.3, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, resize: true }
+            },
+            retina_detect: true
+        });
+    </script>
+</body>
+</html>
